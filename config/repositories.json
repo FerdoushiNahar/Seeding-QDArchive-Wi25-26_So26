@@ -1,0 +1,20 @@
+[
+  {
+    "repo_id": 6,
+    "repo_key": "repo6",
+    "repo_name": "DataverseNO",
+    "base_url": "https://dataverse.no",
+    "strategy": "query",
+    "notes": "DataverseNO uses Dataverse API. Search across public datasets.",
+    "dataverse_subtree": null
+  },
+  {
+    "repo_id": 18,
+    "repo_key": "repo18",
+    "repo_name": "Henry A. Murray Research Archive",
+    "base_url": "https://dataverse.harvard.edu",
+    "strategy": "query",
+    "notes": "Use Harvard Dataverse API limited to subtree mra, because Murray points to its Dataverse collection there.",
+    "dataverse_subtree": "mra"
+  }
+]
