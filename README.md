@@ -105,7 +105,7 @@ https://faubox.rrze.uni-erlangen.de/getlink/fiERrJmS6SePC8hwJMC6oK/
 
 ---
 
-## 🧠 Metadata Stored
+##  Metadata Stored
 
 The SQLite database contains:
 
