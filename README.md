@@ -1,6 +1,7 @@
 # QDArchive Seeding – Part 1: Data Acquisition
 
 **Student:** Ferdoushi Nahar
+**Matriculation Number:** 23129118
 **Project:** SQ26 – Seeding QDArchive
 **Semester:** Wi25/26 / So26
 
@@ -12,65 +13,50 @@ This project implements **Part 1 (Data Acquisition)** of the QDArchive Seeding p
 
 The goal is to:
 
-* discover qualitative research datasets from assigned repositories
-* download publicly available files
-* store metadata in a structured SQLite database
-* record failed downloads (restricted, missing, etc.)
-* prepare data for later cleaning and analysis
+* Discover qualitative research datasets
+* Download QDA-related files
+* Store all metadata in a structured SQLite database
 
 ---
 
-## 📚 Assigned Repositories
+## 🗂️ Assigned Repositories
 
-### Repo 6
+* **Repo 6:** DataverseNO
+  https://dataverse.no/
 
-* **Name:** DataverseNO
-* **URL:** https://dataverse.no/
-
-### Repo 18
-
-* **Name:** Henry A. Murray Research Archive (Harvard Dataverse)
-* **URL:** https://dataverse.harvard.edu/
-* **Collection:** `mra`
+* **Repo 18:** Henry A. Murray Research Archive (Harvard Dataverse)
+  https://dataverse.harvard.edu/
 
 ---
 
-## ⚙️ What This Project Does
+## 📦 Final Submission Database
 
-This project:
+```
+23129118-seeding.db
+```
 
-1. Searches repositories using predefined queries
-2. Discovers qualitative datasets
-3. Extracts metadata using APIs
-4. Stores all metadata in SQLite
-5. Downloads accessible files
-6. Logs failures for restricted or missing files
-7. Exports results to CSV
+This database:
+
+* Contains all extracted metadata
+* Follows the required schema
+* Passes the official validation script with:
+
+  ```
+  10 passed, 0 warnings, 0 errors
+  ```
 
 ---
 
-## 📁 Repository Structure
+## 📁 Project Structure
 
 ```
 Seeding-QDArchive-Wi25-26_So26/
+├── 23129118-seeding.db        ← FINAL SUBMISSION FILE
 ├── config/
-│   ├── repositories.json
-│   └── queries.txt
 ├── scripts/
-│   ├── common.py
-│   ├── dataverse_adapter.py
-│   ├── init_db.py
-│   ├── repo6_adapter.py
-│   ├── repo18_adapter.py
-│   ├── discover_candidates.py
-│   ├── download_candidates.py
-│   ├── export_report.py
-│   └── check_progress.py
 ├── data/
 │   └── db/
-│       ├── metadata.sqlite3
 │       └── downloads_report.csv
-├── tests/
 ├── README.md
 ├── report_template.md
 ├── requirements.txt
@@ -79,157 +65,139 @@ Seeding-QDArchive-Wi25-26_So26/
 
 ---
 
-## 💾 Local Downloaded Data (Not on GitHub)
+## 📂 Data Files (FAUbox)
 
-Downloaded files are stored locally:
+Due to large size, downloaded data is stored externally:
 
-```
-data/downloads/
-├── repo6/
-└── repo18/
-```
+* **Repo 6 Data:**
+  https://faubox.rrze.uni-erlangen.de/getlink/fi9k9TXhHuSto5kuAwEthZ/
 
-⚠️ These files are **NOT included in GitHub** due to size limits.
+* **Repo 18 Data:**
+  https://faubox.rrze.uni-erlangen.de/getlink/fiERrJmS6SePC8hwJMC6oK/
 
 ---
 
-## 🔗 Data Access Links (FAUbox)
+## ⚙️ How to Run the Project
 
-### Repo 6 Data
+### 1. Setup
 
-https://faubox.rrze.uni-erlangen.de/getlink/fi9k9TXhHuSto5kuAwEthZ/
+```bash
+git clone https://github.com/FerdoushiNahar/Seeding-QDArchive-Wi25-26_So26
+cd Seeding-QDArchive-Wi25-26_So26
 
-### Repo 18 Data
-
-https://faubox.rrze.uni-erlangen.de/getlink/fiERrJmS6SePC8hwJMC6oK/
-
----
-
-##  Metadata Stored
-
-The SQLite database contains:
-
-* source URL
-* repository name
-* project title
-* DOI
-* description
-* license
-* uploader / author information
-* keywords
-* file type
-* local file path
-* download status
-* failure reason
-* checksum
-* timestamp
-
----
-
-## ▶️ How to Run
-
-### 1. Create virtual environment
-
-**Windows:**
-
-```
 python -m venv .venv
-.venv\Scripts\activate
-```
+.venv\Scripts\activate   # Windows
 
----
-
-### 2. Install dependencies
-
-```
 pip install -r requirements.txt
 ```
 
 ---
 
-### 3. Initialize database
+### 2. Run Pipeline
 
-```
-python scripts/init_db.py
-```
-
----
-
-### 4. Discover datasets
-
-```
+```bash
 python scripts/discover_candidates.py
-```
-
----
-
-### 5. Check progress
-
-```
-python scripts/check_progress.py
-```
-
----
-
-### 6. Download files
-
-```
 python scripts/download_candidates.py
 ```
 
 ---
 
-### 7. Export CSV report
+### 3. Check Progress
 
+```bash
+python scripts/check_progress.py
 ```
+
+---
+
+### 4. Export Report
+
+```bash
 python scripts/export_report.py
 ```
 
 ---
 
-## 📊 Outputs
+## 🔍 Queries Used
 
-* SQLite database → `data/db/metadata.sqlite3`
-* CSV report → `data/db/downloads_report.csv`
+* `qdpx`
+* `mqda`
+* `nvp`
+* `interview study`
+* `qualitative research`
+* `qualitative data`
 
----
-
-## ⚠️ Challenges Encountered
-
-* restricted files requiring login
-* missing or incomplete metadata
-* inconsistent keyword formatting
-* unclear roles (author vs uploader vs owner)
-* multiple versions of datasets
-* lack of QDA-specific filtering
-
-All data is stored **as-is** without modification.
+These queries were used to maximize discovery of qualitative datasets.
 
 ---
 
-## 📝 Notes
+## 🧠 Data Acquisition Approach
 
-* Failed downloads are recorded, not ignored
-* Metadata is preserved in raw form
-* Designed for further processing in Part 2
+Two strategies were used:
 
----
-
-## 📦 Submission Contents
-
-This repository includes:
-
-* source code
-* configuration files
-* SQLite database
-* CSV export
-* README and documentation
-
-Large data files are hosted externally via FAUbox links.
+* **API-based querying (Dataverse)**
+* **Search-based discovery using keywords**
 
 ---
 
-## 📜 License
+## ⚠️ Data Challenges
 
-This project is for academic use as part of the SQ26 course.
-All downloaded data remains under its original license.
+### 1. Missing Metadata
+
+Many datasets lack complete fields (description, language, etc.).
+
+### 2. Keyword Inconsistency
+
+Keywords are often:
+
+* comma-separated
+* inconsistent formats
+
+Stored as-is (no cleaning in Part 1).
+
+### 3. Restricted Files
+
+Some files require login → marked as failed.
+
+### 4. Role Ambiguity
+
+Difficult to distinguish:
+
+* author
+* uploader
+* owner
+
+### 5. Multiple Licenses
+
+Some datasets contain multiple licenses.
+
+---
+
+## 📊 Output
+
+* SQLite database with required schema
+* CSV report of downloads
+* Structured dataset folders (in FAUbox)
+
+---
+
+## ✅ Validation
+
+Validated using official script:
+
+```bash
+python check_submission.py 23129118-seeding.db
+```
+
+Result:
+
+```
+10 passed, 0 warnings, 0 errors
+```
+
+
+## 📄 License
+
+This project is for academic purposes as part of SQ26 at FAU Erlangen-Nürnberg.
+
+All dataset licenses are preserved as recorded in the database.
